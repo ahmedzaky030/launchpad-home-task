@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LaunchpadService } from 'src/app/core/services/launchpad.service';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import {
@@ -8,6 +8,7 @@ import {
 } from 'src/app/core/model/launchpad.model';
 import { LaunchNameMapperPipe } from 'src/app/shared/pipe/launch-name-mapper.pipe';
 import { PageEvent } from '@angular/material/paginator';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-launchpad',
@@ -15,13 +16,16 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./launchpad.component.css'],
   providers: [MatTable, LaunchNameMapperPipe],
 })
-export class LaunchpadComponent implements OnInit {
+export class LaunchpadComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['full_name', 'region', 'wikipedia'];
   dataSource!: MatTableDataSource<ILaunchPad>;
   pageNumber = 1;
   pageSize = 5;
   totalDocs = 100;
+  isLoading = false;
+  destroy$ = new Subject();
   constructor(private launchpadService: LaunchpadService) {}
+  
 
   ngOnInit(): void {
     this.getLaunchpadList();
@@ -35,9 +39,10 @@ export class LaunchpadComponent implements OnInit {
         limit: this.pageSize,
         page: this.pageNumber,
       },
-    };
+    }; 
     return this.launchpadService
       .queryAllLaunchpads(queryObj)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((v: CustomHttpResponse<ILaunchPad>) => {
         this.dataSource = new MatTableDataSource(v.docs);
         this.pageNumber = v.page;
@@ -49,5 +54,9 @@ export class LaunchpadComponent implements OnInit {
   handlePageEvent(event: PageEvent) {
     this.pageNumber = event.pageIndex + 1;
     this.getLaunchpadList();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
   }
 }
