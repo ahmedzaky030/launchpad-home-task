@@ -2,18 +2,28 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-import { ILaunchPad } from '../model/launchpad.model';
+import {
+  CustomHttpResponse,
+  ILaunchPad,
+  QueryObject,
+} from '../model/launchpad.model';
 import { Observable } from 'rxjs';
 
 export const LAUNCHES = 'launches';
+
 @Injectable({
   providedIn: 'root',
 })
 export class LaunchpadService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllLaunchpads() : Observable<ILaunchPad[]>{
-    return this.httpClient.get<ILaunchPad[]>(`${environment.API_URL}/launchpads`);
+  queryAllLaunchpads(
+    query: QueryObject,
+  ): Observable<CustomHttpResponse<ILaunchPad>> {
+    return this.httpClient.post<CustomHttpResponse<ILaunchPad>>(
+      `${environment.API_URL}/launchpads/query`,
+      query,
+    );
   }
 
   // getLaunchesList(){

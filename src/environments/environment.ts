@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL:'https://api.spacexdata.com/v4'
+  API_URL: 'https://api.spacexdata.com/v4',
 };
 
 /*

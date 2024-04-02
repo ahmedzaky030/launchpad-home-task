@@ -1,17 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LaunchpadService } from 'src/app/core/services/launchpad.service';
 
 @Pipe({
-  name: 'launchNameMapper'
+  name: 'launchNameMapper',
 })
 export class LaunchNameMapperPipe implements PipeTransform {
-  constructor(private launchpadService: LaunchpadService){}
-
-  transform(value: string[]): unknown {
-    // console.log(value);
-    // debugger;
-    // const names = value.map(v => this.launchpadService.getLaunchNameById(v));
-    return value;
+  transform(value: { id: string; name: string }[]): unknown {
+    return value.map((v) => v.name);
   }
-
 }
