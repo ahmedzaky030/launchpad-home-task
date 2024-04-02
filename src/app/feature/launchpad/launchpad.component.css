@@ -3,3 +3,8 @@ mat-progress-spinner {
   top: 20vh;
   left: 50vw;
 }
+
+.showMore {
+    color:blue;
+    cursor: pointer;
+}

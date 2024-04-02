@@ -17,7 +17,8 @@ import { Subject, finalize, takeUntil } from 'rxjs';
   providers: [MatTable, LaunchNameMapperPipe],
 })
 export class LaunchpadComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['full_name', 'region', 'wikipedia'];
+  displayedColumns: string[] = ['full_name', 'region', 'wikipedia', 'launches'];
+  showDetails = false;
   dataSource!: MatTableDataSource<ILaunchPad>;
   pageNumber = 1;
   pageSize = 5;
@@ -59,6 +60,11 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
     this.pageNumber = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.getLaunchpadList();
+  }
+
+  showMore(){
+    //TODO: Implement showdetails for each element
+    this.showDetails = !this.showDetails;
   }
 
   ngOnDestroy(): void {

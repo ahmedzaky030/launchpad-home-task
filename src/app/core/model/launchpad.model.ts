@@ -24,3 +24,8 @@ export interface CustomHttpResponse<T> {
   nextPage: boolean | null;
   prevPage: boolean | null;
 }
+
+export interface IShowMore {
+  id: string;
+  limit: number;
+}
