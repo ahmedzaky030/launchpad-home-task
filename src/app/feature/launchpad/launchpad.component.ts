@@ -28,7 +28,7 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
   isLoading = false;
   showMoreThreshold = CONFIG.showMoreThreshold;
   destroy$ = new Subject();
-  regionOptions :string[] = [];
+  regionOptions: string[] = [];
   searchQueryObj: QueryObject = {
     options: {
       select: { full_name: 1, region: 1, wikipedia: 1 },
@@ -48,7 +48,6 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getLaunchpadList(this.searchQueryObj);
     this.loadRegionsList(this.regionsListQueryObj);
-    
   }
 
   getLaunchpadList(query: QueryObject): void {
@@ -69,23 +68,27 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
 
   loadRegionsList(query: QueryObject): void {
     this.launchpadService
-    .queryAllRegions(query)
-    .pipe(
-      takeUntil(this.destroy$),
-      map((v: CustomHttpResponse<ILaunchPad>) => v.docs.map((e) => e.region)),
-      distinct(),
-    )
-    .subscribe((arr) => {
-      const regionSet = new Set();
-      arr.forEach(v => regionSet.add(v));
-      this.regionOptions = Array.from(regionSet.values()) as string[];
-    });
+      .queryAllRegions(query)
+      .pipe(
+        takeUntil(this.destroy$),
+        map((v: CustomHttpResponse<ILaunchPad>) => v.docs.map((e) => e.region)),
+        distinct(),
+      )
+      .subscribe((arr) => {
+        const regionSet = new Set();
+        arr.forEach((v) => regionSet.add(v));
+        this.regionOptions = Array.from(regionSet.values()) as string[];
+      });
   }
 
   handlePageEvent(event: PageEvent): void {
     this.pageNumber = event.pageIndex + 1;
     this.pageSize = event.pageSize;
-    this.searchQueryObj.options = {...this.searchQueryObj.options, page: this.pageNumber, limit: this.pageSize};
+    this.searchQueryObj.options = {
+      ...this.searchQueryObj.options,
+      page: this.pageNumber,
+      limit: this.pageSize,
+    };
     this.getLaunchpadList(this.searchQueryObj);
   }
 

@@ -7,9 +7,11 @@
 
     <mat-form-field>
       <mat-label>Search By Region</mat-label>
-      <mat-select  [(ngModel)]="queryRegion">
+      <mat-select [(ngModel)]="queryRegion">
         <mat-option value="">No Selection</mat-option>
-        <mat-option *ngFor="let region of regionOptions" [value]="region">{{region}}</mat-option>
+        <mat-option *ngFor="let region of regionOptions" [value]="region">{{
+          region
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -51,10 +53,17 @@
         *ngIf="element.launches.length > 0; then launchesExist; else noLaunches"
       ></span>
       <ng-template #launchesExist
-        ><span [innerHTML]="element.launches | launchNameMapper: showDetails"></span>
-        <a *ngIf="element.launches.length > showMoreThreshold" class="showMore" tabindex="1" (keydown)="showMore()" (click)="showMore()">{{
-          showDetails  ? " Show Less " : " Show More "
-        }}</a>
+        ><span
+          [innerHTML]="element.launches | launchNameMapper: showDetails"
+        ></span>
+        <a
+          *ngIf="element.launches.length > showMoreThreshold"
+          class="showMore"
+          tabindex="1"
+          (keydown)="showMore()"
+          (click)="showMore()"
+          >{{ showDetails ? " Show Less " : " Show More " }}</a
+        >
       </ng-template>
       <ng-template #noLaunches> No launches for this launchpad</ng-template>
     </td>

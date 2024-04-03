@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   exports: [
     MatTableModule,
@@ -24,7 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
   ],
 })
 export class MaterialModule {}
