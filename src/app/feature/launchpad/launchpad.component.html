@@ -51,9 +51,9 @@
         *ngIf="element.launches.length > 0; then launchesExist; else noLaunches"
       ></span>
       <ng-template #launchesExist
-        >{{ element.launches | launchNameMapper: showDetails }}
-        <a class="showMore" tabindex="1" (keydown)="showMore()" (click)="showMore()">{{
-          showDetails ? "Show Less" : "Show More"
+        ><span [innerHTML]="element.launches | launchNameMapper: showDetails"></span>
+        <a *ngIf="element.launches.length > showMoreThreshold" class="showMore" tabindex="1" (keydown)="showMore()" (click)="showMore()">{{
+          showDetails  ? " Show Less " : " Show More "
         }}</a>
       </ng-template>
       <ng-template #noLaunches> No launches for this launchpad</ng-template>

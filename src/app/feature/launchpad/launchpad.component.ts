@@ -6,26 +6,27 @@ import {
   ILaunchPad,
   QueryObject,
 } from 'src/app/core/model/launchpad.model';
-import { LaunchNameMapperPipe } from 'src/app/shared/pipe/launch-name-mapper.pipe';
 import { PageEvent } from '@angular/material/paginator';
 import { Subject, distinct, finalize, map, takeUntil } from 'rxjs';
+import { CONFIG } from 'src/app/core/constants';
 
 @Component({
   selector: 'app-launchpad',
   templateUrl: './launchpad.component.html',
   styleUrls: ['./launchpad.component.css'],
-  providers: [MatTable, LaunchNameMapperPipe],
+  providers: [MatTable],
 })
 export class LaunchpadComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['full_name', 'region', 'wikipedia', 'launches'];
+  displayedColumns: string[] = CONFIG.displayedColumns;
   showDetails = false;
   dataSource!: MatTableDataSource<ILaunchPad>;
-  pageNumber = 1;
+  pageNumber = CONFIG.paginationInitials.pageNumber;
   queryName = '';
   queryRegion = '';
-  pageSize = 5;
-  totalDocs = 100;
+  pageSize = CONFIG.paginationInitials.pageSize;
+  totalDocs = CONFIG.paginationInitials.totalDocs;
   isLoading = false;
+  showMoreThreshold = CONFIG.showMoreThreshold;
   destroy$ = new Subject();
   regionOptions :string[] = [];
   searchQueryObj: QueryObject = {
