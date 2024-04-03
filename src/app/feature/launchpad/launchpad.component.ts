@@ -14,7 +14,6 @@ import { CONFIG } from 'src/app/core/constants';
   selector: 'app-launchpad',
   templateUrl: './launchpad.component.html',
   styleUrls: ['./launchpad.component.css'],
-  providers: [MatTable],
 })
 export class LaunchpadComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = CONFIG.displayedColumns;
