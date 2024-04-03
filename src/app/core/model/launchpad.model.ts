@@ -1,6 +1,11 @@
 export interface QueryObject {
   query?: object;
-  options?: { select: object; populate: object; limit: number; page: number };
+  options?: {
+    select?: object;
+    populate?: object;
+    limit?: number;
+    page?: number;
+  };
 }
 
 export interface ILaunchPad {
