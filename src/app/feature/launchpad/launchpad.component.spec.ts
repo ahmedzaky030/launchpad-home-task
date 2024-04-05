@@ -7,15 +7,13 @@ import {
 
 import { LaunchpadComponent } from './launchpad.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LaunchpadService } from 'src/app/core/services/launchpad.service';
 import { MockLaunchPadService } from 'testing/mock/launchpadservice.mock';
-import {
-  MatSelectModule,
-} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs/internal/observable/of';
@@ -109,7 +107,7 @@ describe('LaunchpadComponent', () => {
     fixture.detectChanges();
     tick();
 
-    fixture.whenStable().then((v) => {
+    fixture.whenStable().then(() => {
       expect(component.search).toHaveBeenCalled();
       expect(component.loadLaunchpadList).toHaveBeenCalled();
       expect(component.searchQueryObj.query).toEqual({

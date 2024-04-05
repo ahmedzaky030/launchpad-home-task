@@ -58,15 +58,19 @@
       ></span>
       <ng-template #launchesExist
         ><span
-          [innerHTML]="element.launches | launchNameMapper: showDetails"
+          [innerHTML]="
+            element.launches | launchesFormatter: showDetailsMap.get(element.id)
+          "
         ></span>
         <a
           *ngIf="element.launches.length > showMoreThreshold"
           class="showMore"
           tabindex="1"
-          (keydown)="showMore()"
-          (click)="showMore()"
-          >{{ showDetails ? " Show Less " : " Show More " }}</a
+          (keydown)="showMore(element.id)"
+          (click)="showMore(element.id)"
+          >{{
+            showDetailsMap.get(element.id) ? " Show Less " : " Show More "
+          }}</a
         >
       </ng-template>
       <ng-template #noLaunches> No launches for this launchpad</ng-template>

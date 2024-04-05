@@ -4,7 +4,6 @@ import { LaunchpadService } from './launchpad.service';
 import { QueryObject } from '../model/launchpad.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { MockData } from 'testing/mockData';
 
 describe('LaunchpadService', () => {
   let service: LaunchpadService;

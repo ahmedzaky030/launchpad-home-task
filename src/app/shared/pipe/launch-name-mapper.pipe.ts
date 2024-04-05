@@ -2,13 +2,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CONFIG } from 'src/app/core/constants';
 
 @Pipe({
-  name: 'launchNameMapper',
+  name: 'launchesFormatter',
 })
-export class LaunchNameMapperPipe implements PipeTransform {
+export class LaunchesFormatterPipe implements PipeTransform {
   transform(
     value: { id: string; name: string }[],
     showDetails: boolean,
-  ): unknown {
+  ): string {
     return showDetails
       ? value.map((v) => v.name).join(' &nbsp; ')
       : value

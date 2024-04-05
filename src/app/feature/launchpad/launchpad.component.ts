@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LaunchpadService } from 'src/app/core/services/launchpad.service';
-import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import {
   CustomHttpResponse,
   ILaunchPad,
   QueryObject,
 } from 'src/app/core/model/launchpad.model';
 import { PageEvent } from '@angular/material/paginator';
-import { Subject, distinct, finalize, map, takeUntil } from 'rxjs';
+import { Subject, finalize, map, takeUntil } from 'rxjs';
 import { CONFIG } from 'src/app/core/constants';
 
 @Component({
@@ -17,7 +17,6 @@ import { CONFIG } from 'src/app/core/constants';
 })
 export class LaunchpadComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = CONFIG.displayedColumns;
-  showDetails = false;
   dataSource!: MatTableDataSource<ILaunchPad>;
   pageNumber = CONFIG.paginationInitials.pageNumber;
   queryName = '';
@@ -28,9 +27,10 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
   showMoreThreshold = CONFIG.showMoreThreshold;
   destroy$ = new Subject();
   regionOptions: string[] = [];
+  showDetailsMap = new Map();
   searchQueryObj: QueryObject = {
     options: {
-      select: { full_name: 1, region: 1, wikipedia: 1 },
+      select: { _id: 1, full_name: 1, region: 1, wikipedia: 1 },
       populate: { path: 'launches', select: 'name' },
       limit: this.pageSize,
       page: this.pageNumber,
@@ -62,6 +62,7 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
         this.pageNumber = v.page;
         this.pageSize = v.limit;
         this.totalDocs = v.totalDocs;
+        v.docs.forEach((el) => this.showDetailsMap.set(el.id, false));
       });
   }
 
@@ -71,7 +72,6 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         map((v: CustomHttpResponse<ILaunchPad>) => v.docs.map((e) => e.region)),
-        distinct(),
       )
       .subscribe((arr) => {
         const regionSet = new Set();
@@ -91,10 +91,8 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
     this.loadLaunchpadList(this.searchQueryObj);
   }
 
-  showMore() {
-    //TODO: Implement showdetails for each element
-    this.showDetails = !this.showDetails;
-  }
+  showMore = (key: string) =>
+    this.showDetailsMap.set(key, !this.showDetailsMap.get(key));
 
   search(): void {
     this.searchQueryObj.query = {};
