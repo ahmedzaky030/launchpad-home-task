@@ -7,29 +7,34 @@ describe('LaunchesFormatterPipe', () => {
     expect(pipe).toBeTruthy();
   });
 
-  it('should return an array slice of values if showDetails is false', () =>{
+  it('should return an array slice of values if showDetails is false', () => {
     const pipe = new LaunchesFormatterPipe();
-    let originArr =  Array(50).fill(0);
-    originArr.forEach((v, i) => {id: (i + 1).toString(); name: `name ${i + 1}`});
+    const originArr = Array(50).fill(0);
+    originArr.forEach((v, i) => {
+      (i + 1).toString();
+      `name ${i + 1}`;
+    });
 
     const actualResult = pipe.transform(originArr, false);
 
-    const expectedResult = originArr.
-    slice(0, CONFIG.showMoreThreshold)
-    .map((v) => v.name)
-    .join(' &nbsp; ');
+    const expectedResult = originArr
+      .slice(0, CONFIG.showMoreThreshold)
+      .map((v) => v.name)
+      .join(' &nbsp; ');
     expect(expectedResult).toEqual(actualResult);
   });
 
-  it('should return an array slice of values if showDetails is true', () =>{
+  it('should return an array slice of values if showDetails is true', () => {
     const pipe = new LaunchesFormatterPipe();
-    let originArr =  Array(50).fill(0);
-    originArr.forEach((v, i) => {id: (i + 1).toString(); name: `name ${i + 1}`});
+    const originArr = Array(50).fill(0);
+    originArr.forEach((v, i) => {
+      (i + 1).toString();
+      `name ${i + 1}`;
+    });
 
     const actualResult = pipe.transform(originArr, true);
 
-    const expectedResult = originArr
-    .map((v) => v.name).join(' &nbsp; ');
+    const expectedResult = originArr.map((v) => v.name).join(' &nbsp; ');
     expect(expectedResult).toEqual(actualResult);
   });
 });
