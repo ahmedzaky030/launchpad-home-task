@@ -2,12 +2,12 @@
   <div>
     <mat-form-field>
       <mat-label>Search By Name</mat-label>
-      <input [(ngModel)]="queryName" matInput />
+      <input id="nameInput" [(ngModel)]="queryName" matInput />
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Search By Region</mat-label>
-      <mat-select [(ngModel)]="queryRegion">
+      <mat-select id="regionSelect" [(ngModel)]="queryRegion">
         <mat-option value="">No Selection</mat-option>
         <mat-option *ngFor="let region of regionOptions" [value]="region">{{
           region
@@ -17,9 +17,13 @@
   </div>
 
   <div>
-    <button mat-raised-button color="primary" (click)="search()">Search</button>
+    <button id="searchBtn" mat-raised-button color="primary" (click)="search()">
+      Search
+    </button>
 
-    <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+    <button id="clearBtn" mat-raised-button color="warn" (click)="clear()">
+      Clear
+    </button>
   </div>
 </div>
 

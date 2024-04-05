@@ -45,11 +45,11 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
   constructor(private launchpadService: LaunchpadService) {}
 
   ngOnInit(): void {
-    this.getLaunchpadList(this.searchQueryObj);
+    this.loadLaunchpadList(this.searchQueryObj);
     this.loadRegionsList(this.regionsListQueryObj);
   }
 
-  getLaunchpadList(query: QueryObject): void {
+  loadLaunchpadList(query: QueryObject): void {
     this.isLoading = true;
     this.launchpadService
       .queryAllLaunchpads(query)
@@ -88,7 +88,7 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
       page: this.pageNumber,
       limit: this.pageSize,
     };
-    this.getLaunchpadList(this.searchQueryObj);
+    this.loadLaunchpadList(this.searchQueryObj);
   }
 
   showMore() {
@@ -108,14 +108,14 @@ export class LaunchpadComponent implements OnInit, OnDestroy {
         region: this.queryRegion,
         ...this.searchQueryObj.query,
       };
-    this.getLaunchpadList(this.searchQueryObj);
+    this.loadLaunchpadList(this.searchQueryObj);
   }
 
   clear(): void {
     this.queryRegion = '';
     this.queryName = '';
     this.searchQueryObj.query = {};
-    this.getLaunchpadList(this.searchQueryObj);
+    this.loadLaunchpadList(this.searchQueryObj);
   }
 
   ngOnDestroy(): void {
