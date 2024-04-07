@@ -21,7 +21,7 @@ export class LaunchpadService {
     query: QueryObject,
   ): Observable<CustomHttpResponse<ILaunchPad>> {
     return this.httpClient.post<CustomHttpResponse<ILaunchPad>>(
-      `${environment.API_URL}/launchpads/query`,
+      `${environment.API_URL}/landpads/query`,
       query,
     );
   }
@@ -30,7 +30,7 @@ export class LaunchpadService {
     query: QueryObject,
   ): Observable<CustomHttpResponse<ILaunchPad>> {
     return this.httpClient.post<CustomHttpResponse<ILaunchPad>>(
-      `${environment.API_URL}/launchpads/query`,
+      `${environment.API_URL}/landpads/query`,
       query,
     );
   }
