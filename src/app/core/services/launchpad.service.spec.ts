@@ -23,14 +23,14 @@ describe('LaunchpadService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should call http client with queryobj to return launchpads results when call function queryAllLaunchpads', () => {
+  it('should call http client with queryobj to return landpads results when call function queryAllLaunchpads', () => {
     const queryObject: QueryObject = { options: { page: 1, limit: 5 } };
     spy = spyOn(httpClient, 'post').and.callThrough();
 
     service.queryAllLaunchpads(queryObject);
 
     expect(spy).toHaveBeenCalledWith(
-      `${environment.API_URL}/launchpads/query`,
+      `${environment.API_URL}/landpads/query`,
       queryObject,
     );
   });
